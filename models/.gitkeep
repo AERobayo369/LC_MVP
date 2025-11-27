@@ -1,0 +1,13 @@
+# This file keeps the models directory in git
+# Place your pretrained model files here
+
+# Supported model formats:
+# - PyTorch models (pytorch_model.bin, model.safetensors)
+# - Hugging Face format (config.json + model files)
+
+# The model directory should contain:
+# - config.json (required)
+# - pytorch_model.bin OR model.safetensors
+# - tokenizer.json OR tokenizer_config.json
+# - vocab.json (for some tokenizers)
+# - merges.txt (for BPE tokenizers)

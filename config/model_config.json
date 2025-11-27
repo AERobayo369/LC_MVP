@@ -1,0 +1,13 @@
+{
+    "model_name_or_path": "microsoft/DialoGPT-medium",
+    "tokenizer_name_or_path": null,
+    "local_model_path": null,
+    "max_length": 200,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "top_k": 50,
+    "do_sample": true,
+    "num_return_sequences": 1,
+    "pad_token_id": null,
+    "device": "auto"
+}
