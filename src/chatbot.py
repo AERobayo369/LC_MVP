@@ -69,11 +69,15 @@ class Chatbot:
         Returns:
             The chatbot's response as a string.
         """
-        # Use config defaults if not specified
-        max_length = max_length or self.config.get("max_length", 1000)
-        temperature = temperature or self.config.get("temperature", 0.7)
-        top_p = top_p or self.config.get("top_p", 0.9)
-        top_k = top_k or self.config.get("top_k", 50)
+        # Use config defaults if not specified (use 'is None' to handle zero values)
+        if max_length is None:
+            max_length = self.config.get("max_length", 200)
+        if temperature is None:
+            temperature = self.config.get("temperature", 0.7)
+        if top_p is None:
+            top_p = self.config.get("top_p", 0.9)
+        if top_k is None:
+            top_k = self.config.get("top_k", 50)
         do_sample = self.config.get("do_sample", True)
         
         # Encode user input
@@ -91,11 +95,12 @@ class Chatbot:
         else:
             bot_input_ids = new_user_input_ids
         
-        # Generate response
+        # Generate response using max_new_tokens instead of max_length
+        # to avoid issues with growing conversation history
         with torch.no_grad():
             self.chat_history_ids = self.model.generate(
                 bot_input_ids,
-                max_length=max_length,
+                max_new_tokens=max_length,
                 pad_token_id=self.tokenizer.pad_token_id,
                 temperature=temperature,
                 top_p=top_p,

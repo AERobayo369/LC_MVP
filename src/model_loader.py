@@ -133,19 +133,19 @@ class ModelLoader:
         
         print(f"Loading model from local path: {model_path}")
         
-        # Load tokenizer
+        # Load tokenizer (trust_remote_code=False for security)
         tokenizer_dir = tokenizer_path or model_path
         self.tokenizer = AutoTokenizer.from_pretrained(
             tokenizer_dir,
             local_files_only=True,
-            trust_remote_code=True,
+            trust_remote_code=False,
         )
         
-        # Load model
+        # Load model (trust_remote_code=False for security)
         self.model = AutoModelForCausalLM.from_pretrained(
             model_path,
             local_files_only=True,
-            trust_remote_code=True,
+            trust_remote_code=False,
             torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
         )
         
@@ -167,17 +167,17 @@ class ModelLoader:
         """Load model and tokenizer from Hugging Face Hub."""
         print(f"Loading model from Hugging Face Hub: {model_name}")
         
-        # Load tokenizer
+        # Load tokenizer (trust_remote_code=False for security)
         tokenizer_name = tokenizer_path or model_name
         self.tokenizer = AutoTokenizer.from_pretrained(
             tokenizer_name,
-            trust_remote_code=True,
+            trust_remote_code=False,
         )
         
-        # Load model
+        # Load model (trust_remote_code=False for security)
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            trust_remote_code=True,
+            trust_remote_code=False,
             torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
         )
         
